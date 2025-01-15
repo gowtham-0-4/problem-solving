@@ -70,3 +70,70 @@ int n=s.size();
     }
   }
         return v;
+
+sort characters by frequency
+#include <bits/stdc++.h>
+using namespace std;
+
+  bool comp(pair<int ,char > a, pair<int,char> b){
+if (a.first>b.first){
+return true;
+  }
+  else if ((a.first<b.first) && (a.first!=b.first) ){
+    return false;
+  }
+  return  (a.second<b.second);
+}
+
+
+
+
+
+class Solution {
+public:
+    string frequencySort(string s) {
+        string a=s;
+        int n=a.size();
+   
+   pair<int,char>f[62];
+   
+for (int i=0; i<26; i++){
+  f[i]={0,i+'a'};
+  f[i+26]={0,i+'A'};
+  
+}
+for (int i=0; i<=9; i++){
+  f[i+52]={0,i+'0'};
+}
+for (auto val:a){//initializing the frequency
+  if (val>='a' && val<='z'){
+    f[val-'a'].first++;
+  }
+else if (val>='A' && val<='Z'){
+    f[val-'A'+26].first++;
+  
+}
+else if (val>='0' && val<='9'){
+  f[val-'0'+52].first++;
+}
+
+}
+string ans="";
+sort(f+0,f+62,comp);
+for (int i=0; i<62; i++){
+  if (f[i].first>=1){
+    int p=f[i].first;
+    while (p!=0){
+      ans+=f[i].second;
+      p--;
+    }
+  }
+  else {
+    break;
+  }
+}
+return ans;
+
+        
+    }
+};
