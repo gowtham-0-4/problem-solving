@@ -494,3 +494,112 @@ if (a.size()!=c.size()){
     }
 };
 
+sum of beauty of all substrings 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+class Solution {
+public:
+    int beautySum(string s) {
+        string a=s;
+        int n=a.length();
+  int i=0,j=0,sum=0;
+  while (i<n){
+    
+    while (j<n){
+int hash[26]={0};
+      if (i!=j){
+        int s=i;
+       for (int i=s; i<=j; i++){
+         hash[a[i]-'a']+=1;
+       }
+       for (int i=0; i<26 ; i++){
+       }
+   
+        
+        int maxi=INT_MIN;
+        int mini=INT_MAX;
+        for (int i=0; i<26; i++){
+           maxi=max(maxi,hash[i]);
+           if (hash[i]!=0){
+              mini=min(mini,hash[i]);
+
+             
+           }
+          
+        }
+        int k=maxi-mini;
+        if (k!=0){
+          sum+=k;
+        }
+  
+
+       
+        
+      }
+      j++;
+      
+    }
+    i++;
+    j=i;
+  }
+return sum;        
+    }
+};
+
+sum of beauty of all substring // brute force
+
+class Solution {
+public:
+    int beautySum(string s) {
+   
+
+  string a=s;
+  int n=a.length();
+  int i=0,j=0,sum=0;
+  while (i<n){
+    
+    while (j<n){
+      string ans="";
+map<char,int>mpp;
+
+      if (i!=j){
+        
+        int s=i;
+        while (s<=j && s<n && j<n ){
+          mpp[a[s]]+=1;
+          s++;
+        }
+        int maxi=INT_MIN;
+        int mini=INT_MAX;
+        for  (auto val:mpp){
+           maxi = max(maxi, val.second);
+                mini = min(mini, val.second);
+        }
+      int k=maxi-mini;
+      if (k!=0){
+                  sum+=k;
+
+        
+      }
+
+        
+  
+
+       
+        
+      }
+      j++;
+      
+    }
+    i++;
+    j=i;
+  }
+  return sum;
+
+        
+    }
+};
