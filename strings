@@ -1,4 +1,5 @@
 Longest padindromic string 
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -46,6 +47,7 @@ public:
 };
 
 Longest palindromic substring 2 
+
 int n=s.size();
   int length=0;
 
@@ -72,6 +74,7 @@ int n=s.size();
         return v;
 
 sort characters by frequency
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -84,10 +87,6 @@ return true;
   }
   return  (a.second<b.second);
 }
-
-
-
-
 
 class Solution {
 public:
@@ -137,3 +136,361 @@ return ans;
         
     }
 };
+
+Rotate string
+
+Input: s = "abcde", goal = "cdeab"
+Output: true
+
+#include<bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        if (s.size()!=goal.size())return false;
+        string p=s+s;
+        if (p.find(goal)!=string::npos){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+};
+
+Largest substring of a odd number in a string 
+
+#include<bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    string largestOddNumber(string num) {
+  int n=num.length();
+  int i=0,j=n-1;
+  
+  while (j>=0){
+    if (num[i]==0){
+      i++;
+    }
+    if (num[j]%2!=0){
+      break;
+      
+    }
+        else if (num[j]%2==0){
+          if (j==0){
+            j=-1;
+            break;
+          }
+          j--;
+
+  
+  }
+  
+}
+
+return num.substr(i,j-i+1);
+    
+    }
+};
+
+Valid anagram 
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+         int  n =s.size();
+         int m=t.size();
+         if (m!=n)return false;
+   int hash[26]={0};
+   int hashing[26]={0};
+   
+   for (int i=0; i<n;  i++){
+     hash[s[i]-'a']++;
+     hashing[t[i]-'a']++;
+     
+   }
+   
+   for (int i=0; i<26; i++){
+     if (hash[i]!=hashing[i]) {
+       return false;
+     }
+   }
+   return true;
+    }
+};
+
+Longest common prefix 
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+
+        if (strs.empty()){
+            return "";
+        }
+
+        sort(strs.begin(),strs.end());
+
+        string n=strs[strs.size()-1];
+        string m=strs[0];
+string ans="";
+        int len=min(n.size(),m.size());
+
+        for (int i=0; i<len ; i++){
+            if (n[i]!=m[i]){
+                break;
+            }
+            else {
+                ans+=n[i];
+            }
+        }
+        return ans;
+
+        
+    }
+};
+
+Isomorphic strings 
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+       map<char,char>mpp;
+map<char,char>mpp1;
+string a=s;
+string b=t;
+for (int i=0; i<a.length(); i++){
+   if (mpp.find(a[i])!=mpp.end()){
+     if (mpp[a[i]]!=b[i]){
+        return false;
+     }
+   }
+     else {
+       mpp[a[i]]=b[i];
+     }
+     
+     if (mpp1.find(b[i])!=mpp1.end()){
+       if (mpp1[b[i]]!=a[i]){
+        return false;
+         break;
+       }
+     }
+       else {
+         mpp1[b[i]]=a[i];
+       }
+     }
+     
+
+  
+
+     return true;
+    }
+};
+
+Reverse words in a string 
+
+class Solution {
+public:
+    string reverseWords(string s) {
+        int n=s.length();
+  int i=0,j=0;
+  int start,end;
+  reverse(s.begin(),s.end());
+while (i<n){
+      while (s[j]==' '){
+        j++;
+      }
+      if (j>=n){
+        break;
+      }
+      start=i;
+      while (j<n && s[j]!=' '){
+        s[i]=s[j];
+        i++;
+        j++;
+      }
+      s[i]=' ';
+      i++;
+      end=i-1;
+reverse(s.begin()+start,s.begin()+end);
+      
+}
+
+return s.substr(0,i-1);
+
+  
+        
+    }
+};
+
+Reverse words in string 2
+
+#include <bits/stdc++.h>
+using namespace std;
+string reverseString(string &str){
+    
+
+  string s=str;
+  
+  int n=s.length();
+  int i=0,j=0;
+vector<string>q;
+while (i<n){
+      while (s[i]==' '){
+        i++;
+      }
+      if (i>=n){
+        break;
+      }
+      j=i;
+      while (j<n && s[j]!=' '){
+        j++;
+      }
+      
+q.push_back(s.substr(i,j-i));
+
+  i=j;
+}
+string result="";
+for (int j=q.size()-1; j>=0; j--){
+  if (!result.empty()){
+    result+=' ';
+      result+=q[j];
+
+    
+  }
+  else {
+          result+=q[j];
+
+    
+  }
+}
+return result;
+
+  
+
+    // Write your code here.    
+}
+
+Valid parenthesis 
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char>st;
+        bool check=false;
+        for (int i=0; i<s.size(); i++){
+            if (s[i]=='(' || s[i]=='{' || s[i]=='['){
+                st.push(s[i]);
+            }
+         else if ((s[i]==')' || s[i]=='}' || s[i]==']') && (!st.empty())){
+            char ch=st.top();
+            st.pop();
+            if ((s[i]==')' && ch=='(') ||( s[i]=='}' && ch=='{') || (s[i]==']' && ch=='[')){
+                check=true;
+            }
+            else {
+                return false;
+            }
+          
+         }
+         else {
+            return false;
+         }
+         
+
+        }
+        if (check==true && st.empty()){
+    return true;
+
+        }
+        else {
+            return false;
+        }
+    }
+};
+
+Minimum number of swaps to make the string balanced
+
+class Solution {
+public:
+    int minSwaps(string s) {
+  int open=0,close=0;
+  for (int i=0; i<s.size(); i++){
+    if (s[i]=='['){
+      open++;
+
+    }
+    else if (s[i]==']'){
+        if (open>0){
+        open--;
+
+      }
+       else {
+      close ++;
+
+    }
+    
+      
+    }
+   
+   
+  }
+  return (open+1)/2;
+  }
+  
+};
+
+Word pattern \
+
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+
+  string a=pattern;
+  string b=s;
+  vector<string >c;
+  int i=0, j=0;
+  map<char,string>mpp;
+  map<string,char>mpp1;
+  while (i<b.size()){
+    while (j<b.size() && b[j]!=' '){
+      j++;
+    }
+    
+    c.push_back ( b.substr(i,j-i));
+    while (j<b.size() && b[j]==' '){
+      j++;
+    }
+    i=j;
+  }
+if (a.size()!=c.size()){
+    return false;
+}
+  for (int i=0; i<c.size(); i++){
+    
+    if (mpp.find(a[i])!=mpp.end()){
+      if( (mpp[a[i]])!=c[i]){
+        return false;
+      }
+    
+    }
+      else {
+        mpp[a[i]]=c[i];
+      }
+    if (mpp1.find(c[i])!=mpp1.end()){
+      if( (mpp1[c[i]])!=a[i]){
+        return false;
+      }
+      
+    }
+    else {
+        mpp1[c[i]]=a[i];
+      }
+    
+  }
+        return true;
+    }
+};
+
