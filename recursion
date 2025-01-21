@@ -95,3 +95,54 @@ int main(){
   
  
 }
+pow(x,n)
+
+class Solution {
+public:
+
+
+long double recur(long double x, long long n,long double ans ){
+  if (n<=0){
+    return ans;
+  }
+  if (n%2!=0){
+    ans=ans*x;
+    cout<<ans<<endl;
+    n=n-1;
+            return recur(x,n,ans);
+
+  }
+  else {
+    x=x*x;
+    n=n/2;
+        return recur(x,n,ans);
+
+  }
+}
+    double myPow(double x, int n) {
+         int count=1;
+  long double ans=1;
+  if (n==0){
+    return 1;
+  }
+  
+if (n>0){
+      long double z=recur(x,n,ans);
+      return z;
+
+  }
+  else {
+    long long p=n;
+    long long q=p*-1;
+    
+          long   double z=recur(x,q,ans);
+          
+          long   double m=1/z;
+          return m;
+
+    
+  }
+  
+        
+    }
+};
