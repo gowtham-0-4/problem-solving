@@ -146,3 +146,84 @@ if (n>0){
         
     }
 };
+
+sort a stack 
+
+/*The structure of the class is
+class SortedStack{
+public:
+	stack<int> s;
+	void sort();
+};
+*/
+
+/* The below method sorts the stack s 
+you are required to complete the below method */
+
+  void rev(stack<int>& stack, vector<int>z,int i){
+  if (i>=z.size()){
+    return ;
+  }
+  else {
+    stack.push(z[i]);
+    i=i+1;
+    return rev(stack,z,i);
+    
+  }
+  
+}
+
+vector<int>recur(stack<int>& stack, vector<int>temp){
+  if (stack.empty()){
+    return temp;
+  }
+  else {
+     auto p=stack.top();
+    stack.pop();
+    temp.push_back(p);
+    return recur(stack,temp);
+  }
+  
+  
+}
+void SortedStack :: sort()
+{
+     vector<int>temp;
+  vector<int>z=recur(s,temp);
+  std::sort(z.begin(),z.end());
+ int i=0;
+ rev(s,z,i);
+  
+   //Your code here
+}
+
+reverse a stack
+#include<bits/stdc++.h>
+using namespace std;
+void insert(stack<int> &stack,int val){
+    if (stack.empty()){
+        stack.push(val);
+        return ;
+    }
+    auto num=stack.top();
+    stack.pop();
+    insert(stack,val);
+    stack.push(num);
+    return;
+}
+
+void rev(stack<int>& stack){
+    if (stack.empty()){
+        return ;
+    }
+    auto p=stack.top();
+    stack.pop();
+    rev(stack);
+    insert(stack,p);
+    return;
+}
+void reverseStack(stack<int> &stack) {
+
+    rev(stack);
+    // Write your code here
+}
