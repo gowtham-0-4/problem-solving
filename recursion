@@ -227,3 +227,104 @@ void reverseStack(stack<int> &stack) {
     rev(stack);
     // Write your code here
 }
+
+generate parenthesis
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void g(vector<string>&result,string s, int n){
+    if (s.size()==(n*2)){
+      int open=0,close=0,i=0;
+      while (i<s.size()){
+        if (s[i]=='('){
+          open++;
+      }
+      else{
+        if (open>0){
+          open--;
+        }
+        else{
+          close++;
+        }
+      }
+      i++;
+      }
+      if (open==0 && close ==0){
+        result.push_back(s);
+
+      }
+        return ;
+    }
+    else {
+      g(result,s+'(',n);
+          
+          g(result,s+')',n);
+          return;
+      
+    }
+          
+
+    
+
+      
+        
+
+}
+vector<string>q(int n){
+    vector<string>result;
+string s="";
+ g(result,s,n);
+ return result;
+
+}
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string>w=q(n);
+        return w;
+        
+    }
+};
+
+generate all binary strings without consequtive 1s
+#include<bits/stdc++.h>
+using namespace std;
+
+void g(vector<string>&result,string s, int n){
+    if (s.size()==n){
+        result.push_back(s);
+        return ;
+    }
+    if (!s.empty() && s[s.size()-1]=='1'){
+        string r=s+'0';
+         g(result,r,n);
+    }
+      else if (s.empty() || s[s.size()-1]=='0'){
+        string p=s+'0';
+          g(result,p,n);
+         string q=s+'1';
+          g(result,q,n);
+
+    }
+
+      
+        
+
+}
+vector<string>q(int n){
+    vector<string>result;
+string s="";
+ g(result,s,n);
+ return result;
+
+}
+
+vector<string> generateString(int N) {
+
+vector<string>w=q(N);
+
+return w;
+    // Write your code here.
+}
