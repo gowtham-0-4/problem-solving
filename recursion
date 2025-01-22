@@ -328,3 +328,45 @@ vector<string>w=q(N);
 return w;
     // Write your code here.
 }
+
+count good numbers 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int powe(long long n,long long ans,long long x){
+  if (n<=0){
+    return ans;
+  }
+int mod = 1000000007;
+if (n%2!=0){
+    ans=(ans*x) % mod;
+    n=n-1;
+        return powe(n,ans,x);
+
+  }
+  else {
+    x=(x*x ) % mod;
+    n=n/2;
+    return powe(n,ans,x);
+  }
+}
+
+class Solution {
+public:
+    int countGoodNumbers(long long n) {
+        
+         int mod = 1000000007;
+
+  
+  long long o=n/2;
+  long long e=(n%2)+o;
+  long long ans=1;
+  
+  long long y=powe(o,ans,4);
+  long long z=powe(e,1,5);
+  
+  long long h=(y*z) % mod;
+return h;  
+    }
+};
