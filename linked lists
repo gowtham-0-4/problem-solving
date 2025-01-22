@@ -1,0 +1,1697 @@
+Insert node at single linked list
+struct Node {
+  int data;
+  struct Node * next;
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+}; */
+
+class Solution {
+  public:
+    Node *insertAtEnd(Node *head, int x) {
+   if (head==nullptr){
+     Node*you=new Node(x);
+     return you;
+     
+   }
+  
+   Node*temp=head;
+ 
+   while (temp!=nullptr){
+       if (temp-> next==nullptr){
+           Node* you=new Node(x);
+           temp->next=you;
+           you->next=nullptr;
+           return head;
+           break;
+       }
+    
+  
+     temp=temp->next;
+   }
+ 
+   
+
+        // Code here
+    }
+};
+Delete node at single linked list 
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+  public:
+  int d1;
+  node* next;
+  public:
+  node(int d2, node*next1){
+    d1=d2;
+    next=next1;
+  }
+  
+  node(int d2){
+    d1=d2;
+    next=nullptr;
+  }
+};
+
+node*convert(vector<int> &arr){
+  if (arr.empty()){
+    return nullptr;
+  }
+  node*head=new node(arr[0]);
+  node* m1=head;
+  
+  for (int i=1; i<arr.size(); i++){
+    node*vec=new node(arr[i]);
+    m1->next=vec;
+    m1=vec;
+  }
+  return head;
+}
+ 
+node* dele(node* head, int k){
+  node*temp=head;
+  node* prev=nullptr;
+  int count=1;
+  while(temp!=nullptr){
+    if (head==nullptr){
+      return nullptr;
+    }
+    if (k<=1){
+      head=head->next;
+      delete(temp);
+      return head;
+    }  
+      if (count==k){
+        prev->next=prev->next->next;
+        delete(temp);
+        return head;
+      }
+      count++;
+      prev=temp;
+      temp=temp->next;
+    
+  }
+  return head;
+}
+int main() 
+{
+ vector<int>arr={1,2,3,4,5};
+ 
+ node* heap=convert(arr);
+ int k=3;
+ node*qw=dele(heap,k);
+ node* da=qw;
+ 
+ while (da!=nullptr){
+   cout<<da->d1<<" ";
+   da=da->next;
+ }
+
+}
+Reverse in a single linked list 
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode*temp=head;
+        if (head==nullptr){
+            return nullptr;
+        }
+        if (head->next==nullptr){
+            return head;
+        }
+        ListNode*prev=nullptr;
+        ListNode*front=nullptr;
+        while(temp!=nullptr){
+            front=temp->next;
+            temp->next=prev;
+            prev=temp;
+            temp=front;
+
+        }
+        return prev;
+        
+    }
+};
+ Insert node in dll
+struct Node
+{
+  int data;
+  struct Node *next;
+  struct Node *prev;
+  Node(int x) { data = x; next = prev = NULL; }
+}; */
+ Node*convert(Node*head,int pos,int data, int n){
+     Node*temp=head;
+if (head==nullptr){
+    if (pos==0){
+        Node*you=new Node(data);
+        return you;
+    }
+    return head;
+}
+
+if (pos==n-1){
+    while (temp!=nullptr){
+        if (temp->next==nullptr){
+                Node*you=new Node(data);
+                temp->next=you;
+                you->prev=temp;
+                you->next=nullptr;
+                return head;
+
+        }
+        temp=temp->next;
+    }
+    
+}
+              int count=0;
+              Node*front=nullptr;
+while (temp!=nullptr){
+   
+    if (count==0 && pos==0){
+            Node*you=new Node(data);
+  you->next=head;
+  head->prev=you;
+  return you;
+    }
+     if (count==pos){
+Node*you=new Node(data);
+front=temp->next;
+temp->next=you;
+you->prev=temp;
+you->next=front;
+front->prev=you;
+return head;
+         
+}
+count++;
+temp=temp->next;
+   
+    
+}
+return head;
+  
+     
+ }
+class Solution {
+  public:
+    // Function to insert a new node at given position in doubly linked list.
+    Node *addNode(Node *head, int pos, int data) {
+        Node*m1=head;
+        int n=0;
+        while (m1!=nullptr){
+            n++;
+            m1=m1->next;
+        }
+        
+          Node * dll= convert(head,pos,data,n);
+          return dll;
+        // code here
+    }
+};
+
+Delete node in dll 
+class Node {
+  public:
+    int data;
+    Node *next;
+    Node *prev;
+
+    Node(int val) {
+        data = val;
+        this->next = NULL;
+        this->prev = NULL;
+    }
+};
+*/
+Node*dele(Node* head,int x){
+    Node* temp=head;
+    
+if (head==nullptr){
+    return nullptr;
+}
+if (x==1 && head->next==nullptr){
+    head->next=nullptr;
+    head->prev=nullptr;
+    return head;
+}
+if (x==1){
+    temp=temp->next;
+    temp->prev=nullptr;
+    delete head;
+    return temp;
+}
+int count=1;
+while (temp!=nullptr){
+    if (temp->next==nullptr && count==x){
+        temp->prev->next=nullptr;
+        temp->next=nullptr;
+        delete temp;
+        return head;
+    }
+    
+    if (count ==x){
+        temp->prev->next=temp->next;
+        temp->next->prev=temp->prev;
+        delete temp;
+        
+        return head;
+    }
+    count++;
+    temp=temp->next;
+}
+return head;
+    
+}
+
+class Solution {
+  public:
+    // Function to delete a node at given position.
+    Node* deleteNode(Node* head, int x) {
+        
+        Node*heap=dele(head,x);
+        return heap;
+        // Your code here
+    }
+};
+Reverse in dll
+class DLLNode {
+  public:
+    int data;
+    DLLNode *next;
+    DLLNode *prev;
+
+    DLLNode(int val) {
+        data = val;
+        this->next = NULL;
+        this->prev = NULL;
+    }
+};
+*/
+ DLLNode *convert(vector<int> &arr){
+  if (arr.empty()){
+    return nullptr;
+  }
+  DLLNode *head=new  DLLNode (arr[0]);
+  DLLNode * m2=head;
+  
+  for (int i=1; i<arr.size(); i++){
+ DLLNode *vec=new DLLNode (arr[i]);
+    m2->next=vec;
+    vec->prev=m2;
+   
+    m2=vec;
+  }
+  return head;
+}
+class Solution {
+  public:
+    // Function to reverse a doubly linked list
+    DLLNode* reverseDLL(DLLNode* head) {
+        vector<int>vec;
+         DLLNode *m1=head;
+        int count=0;
+        while(m1!=nullptr){
+            count++;
+            if (m1->next==nullptr){
+                break;
+            }
+            m1=m1->next;
+        }
+        while (count!=0){
+            vec.push_back(m1->data);
+            m1=m1->prev;
+            count--;
+        }
+       DLLNode *heap=convert(vec);
+        // Your code here
+        return heap;
+    }
+};
+
+Add two numbers in single linked list 
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+ListNode*summation(ListNode*head,ListNode*head1){
+  ListNode*m1=head;
+  ListNode*m2=head1;
+  ListNode*dummy=new ListNode(-1);
+  ListNode*m4=dummy;
+  int carry=0, t=0;
+  
+  while ((m1!=nullptr) || (m2!=nullptr)){
+    if((m1!=nullptr) && (m2!=nullptr)){
+      t=m1->val+m2->val+carry;
+    } 
+     else if((m1!=nullptr) && (m2==nullptr)){
+      t=m1->val+carry;
+
+    }
+    else{
+      t=m2->val+carry;
+
+    }
+    carry=0;
+    int a=t%10;
+    int b=t/10;
+    carry+=b;
+    ListNode*you=new ListNode(a);
+    m4->next=you;
+    m4=you;
+    if (m1!=nullptr){
+      m1=m1->next;
+    }
+     if (m2!=nullptr){
+      m2=m2->next;
+    }
+    if (m1==nullptr && m2==nullptr){
+      if (carry!=0){
+        ListNode*you1=new ListNode(carry);
+        m4->next=you1;
+        m4=you1;
+      }
+       return dummy->next;
+
+    }
+    
+    
+    
+    
+  }
+ 
+ 
+ return dummy->next;
+}
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+     ListNode* add=summation(l1,l2);
+     return add;
+        
+    }
+};
+To check palindrome or not
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+         ListNode*slow=head;
+  ListNode*fast=head;
+ while(fast->next !=nullptr && fast->next->next!=nullptr){
+   slow=slow->next;
+   fast=fast->next->next;
+ }
+
+  ListNode*temp=slow->next;
+  ListNode*prev=nullptr;
+  ListNode*front=nullptr;
+ while(temp!=nullptr){
+   front=temp->next;
+   temp->next=prev;
+   prev=temp;
+   temp=front;
+ }
+ 
+  ListNode*vec1=prev;
+  ListNode*qwer=prev;
+  ListNode*you=head;
+ bool check=true;
+ 
+ 
+ while(you!=nullptr && vec1!=nullptr){
+   if(you->val !=vec1->val){
+     check=false;
+     break;
+   }
+   you=you->next;
+   vec1=vec1->next;
+ }
+ 
+  ListNode*nxt=nullptr;
+  ListNode*last=nullptr;
+ while (qwer!=nullptr){
+   nxt=qwer->next;
+   qwer->next=last;
+   last=qwer;
+   qwer=nxt;
+   if (qwer==nullptr){
+     slow->next=last;
+     break;
+   }
+   
+ }
+ 
+return check;        
+    }
+};
+
+To segregate odd and even
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (head==nullptr || head->next==nullptr){
+            return head;
+        }
+         ListNode* temp = head;
+     ListNode* slow = head;
+     ListNode* fast = head->next;
+     ListNode* even = head->next;
+     ListNode* front = nullptr;
+     ListNode* last = nullptr;
+
+ while ( fast!=nullptr && fast->next!=nullptr){
+   
+  front=slow->next->next;
+
+last=fast->next->next;
+
+ 
+      
+   slow->next=front;
+  slow=front;
+         
+
+  fast->next=last;
+  fast=last;
+
+
+ }
+slow->next=even;
+ 
+
+        return head;
+    }
+};
+
+Sort inked list in single ll
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ ListNode*sorting(ListNode*m1,ListNode*m2){
+
+      ListNode*dummy=new  ListNode(-1);
+       ListNode*odd=dummy;
+       
+         while (m1!=nullptr  && m2!=nullptr){
+            if (m1->val<=m2->val){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+            }
+            else {
+                odd->next=m2;
+                odd=odd->next;
+                m2=m2->next;
+            }
+         }
+         while (m1==nullptr  && m2!=nullptr){
+            odd->next=m2;
+            odd=odd->next;
+            m2=m2->next;
+         }
+         while (m2==nullptr  && m1!=nullptr){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+         }
+
+        return dummy->next;
+}
+
+ListNode*middle(ListNode*head1){
+  ListNode*fast=head1;
+ ListNode*slow=head1;
+  
+  while (fast->next!=nullptr && fast->next->next != nullptr){
+    slow=slow->next;
+    fast=fast->next->next;
+  }
+  return slow;
+}
+ListNode*merge(ListNode*head){
+  if (head==nullptr || head->next==nullptr){
+    return head;
+  }
+  
+ ListNode*mid1=middle(head);
+  
+  ListNode*m1=mid1->next;
+  mid1->next=nullptr;
+  
+  ListNode*left=merge(head);
+  ListNode*right=merge(m1);
+  
+  
+   return sorting(left,right);
+
+}
+ 
+
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        
+        if (head==nullptr){
+            return nullptr;
+        }
+        if (head->next==nullptr){
+            return head;
+        }
+        ListNode* temp=head;
+ 
+ ListNode*qwerty=merge(head);
+ return qwerty;
+ 
+    }
+};
+
+Sort linked list 0s,1s,2s
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ ListNode*sorting(ListNode*m1,ListNode*m2){
+
+      ListNode*dummy=new  ListNode(-1);
+       ListNode*odd=dummy;
+       
+         while (m1!=nullptr  && m2!=nullptr){
+            if (m1->val<=m2->val){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+            }
+            else {
+                odd->next=m2;
+                odd=odd->next;
+                m2=m2->next;
+            }
+         }
+         while (m1==nullptr  && m2!=nullptr){
+            odd->next=m2;
+            odd=odd->next;
+            m2=m2->next;
+         }
+         while (m2==nullptr  && m1!=nullptr){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+         }
+
+        return dummy->next;
+}
+
+ListNode*middle(ListNode*head1){
+  ListNode*fast=head1;
+ ListNode*slow=head1;
+  
+  while (fast->next!=nullptr && fast->next->next != nullptr){
+    slow=slow->next;
+    fast=fast->next->next;
+  }
+  return slow;
+}
+ListNode*merge(ListNode*head){
+  if (head==nullptr || head->next==nullptr){
+    return head;
+  }
+  
+ ListNode*mid1=middle(head);
+  
+  ListNode*m1=mid1->next;
+  mid1->next=nullptr;
+  
+  ListNode*left=merge(head);
+  ListNode*right=merge(m1);
+  
+  
+   return sorting(left,right);
+
+}
+ 
+
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        
+        if (head==nullptr){
+            return nullptr;
+        }
+        if (head->next==nullptr){
+            return head;
+        }
+        ListNode* temp=head;
+ 
+ ListNode*qwerty=merge(head);
+ return qwerty;
+ 
+    }
+};
+
+Add one number to a linked list 
+
+/*
+
+struct Node
+{
+    int data;
+    struct Node* next;
+
+    Node(int x){
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+int merge(Node*head){
+  Node*temp=head;
+  
+  if (temp==nullptr){
+    return 1;
+  }
+  int carry=merge(temp->next);
+  int a=temp->data+carry;
+  carry=0;
+  int b=a%10;
+  temp->data=b;
+  int c=a/10;
+  carry=carry+c;
+  return carry;
+}
+
+class Solution {
+  public:
+    Node* addOne(Node* head) {
+        if (head==nullptr){
+            return nullptr;
+        }
+        Node*dummy=nullptr;
+   int add=merge(head);
+   if (add!=0){
+     dummy=new Node(add);
+     dummy->next=head;
+     return dummy;
+   }
+   else {
+return head;
+}
+        // Your Code here
+        // return head of list after adding one
+    }
+
+Detect a loop in linked list 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+         if (head==nullptr || head->next==nullptr){
+            return false;
+        }
+        ListNode*slow=head;
+        ListNode*fast=head;
+        while ( fast->next!=nullptr){
+             if (fast->next->next==nullptr){
+              return false;
+             }
+                          slow=slow->next;
+
+               fast=fast->next->next;
+
+             if (slow==fast){
+                return true;
+             }
+
+        }
+
+        return false;
+        
+    }
+        
+    
+};
+
+Remove duplicates in dubly linked list
+struct Node
+{
+    int data;
+    Node * next;
+    Node * prev;
+    Node (int x)
+    {
+        data=x;
+        next=NULL;
+        prev=NULL;
+    }
+        
+};
+*/
+
+class Solution
+{
+public:
+
+    Node * removeDuplicates(struct Node *head)
+    {
+        Node*i=head;
+Node*j=i->next;
+ Node*vec=nullptr;
+ Node*temp=nullptr;
+ if (head==nullptr){
+     return nullptr;
+ }
+ if (head->next==nullptr){
+     return head;
+ }
+ 
+ while (j!=nullptr){
+   
+   if (i->data==j->data){
+     j=j->next;
+     if (j==nullptr){
+       i->next=nullptr;
+       i=i->next;
+     }
+   }
+   else if(i->next!=nullptr && i->data != i->next->data){
+     i=i->next;
+   }
+   else if ( (i->next!=nullptr  ) && (i->data == i->next->data) && (i->data !=j->data)){
+     temp=i;
+     temp->next=j;
+     j->prev=temp;
+     i=temp;
+     j=j->next;
+   }
+ }
+ return head;
+        // Your code here
+    }
+};
+
+Find pairs in doubly linked list 
+/* Doubly linked list node class
+class Node
+{
+public:
+    int data;
+    Node *next, *prev;
+    Node(int val) : data(val), next(NULL), prev(NULL)
+    {
+    }
+};
+*/
+#include<bits/stdc++.h>
+using namespace std;
+class Solution
+{
+public:
+    vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target)
+    {
+        Node*i=head;
+Node*j=i->next;
+ vector<pair<int,int >>temp;
+ if (head==nullptr){
+     return temp;
+ }
+ if (head->next==nullptr){
+     return temp;
+ }
+
+  Node*vec=head;
+ while (vec!=nullptr){
+   j=vec;
+   vec=vec->next;
+ }
+ 
+ while (i!=nullptr && j!=nullptr){
+  int t=i->data+j->data;
+
+  
+  if (i->data>j->data || i==j){
+    break;
+    }
+
+  if (t==target){
+
+  
+    temp.push_back({i->data,j->data});
+    i=i->next;
+    j=j->prev;
+  }
+  else if(t<target){
+        i=i->next;
+
+  }
+  else {    
+
+    j=j->prev;
+  }
+  
+ }
+ 
+ return temp;
+        // code here
+    }
+};
+Reverse nodes in k group
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+  public:
+  int d1;
+  node* next;
+  public:
+  node(int d2, node*next1){
+    d1=d2;
+    next=next1;
+  }
+  
+  node(int d2){
+    d1=d2;
+    next=nullptr;
+  }
+};
+
+node*convert(vector<int> &arr){
+  if (arr.empty()){
+    return nullptr;
+  }
+  node*head=new node(arr[0]);
+  node* m1=head;
+  
+  for (int i=1; i<arr.size(); i++){
+    node*vec=new node(arr[i]);
+    m1->next=vec;
+    m1=vec;
+  }
+  return head;
+}
+
+
+
+node*reverse(node*head){
+  
+  if (head==nullptr || head->next==nullptr){
+    return head;
+  }
+  
+  node*newhead=reverse(head->next);
+  node*front=head->next;
+  front->next=head;
+  head->next=nullptr;
+  return newhead;
+  
+}
+node*find(node*vec,int k){
+  int count=1;
+  while (vec!=nullptr){
+     if (count==k){
+    return vec;
+  }
+  vec=vec->next;
+  count++;
+    
+  }
+ return nullptr;
+}
+ 
+int main() 
+{
+ vector<int>arr={1,2,3,4,5,6,7,8};
+ 
+ node* heap=convert(arr);
+ node* temp=heap;
+ node*front=nullptr;
+ node*prev=nullptr;
+ int k=3;
+ while (temp!=nullptr){
+   
+   node*kth=find(temp,k);
+   if (kth==nullptr){
+     if (prev!=nullptr){
+
+       prev->next=temp;
+     }
+     break;
+   }
+   front=kth->next;
+   kth->next=nullptr;
+    
+    node*newhead=reverse(temp);
+    if (temp==heap){
+      heap=newhead;
+    }
+    else {
+      prev->next=newhead;
+      
+    }
+    prev=temp;
+    temp=front;
+
+ }
+ node*you=heap;
+ cout<<endl;
+ while (you!=nullptr){
+   cout<<you->d1<<"  ";
+   you=you->next;
+ }
+ 
+   
+}
+Rotate list 
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+  public:
+  int d1;
+  node* next;
+  public:
+  node(int d2, node*next1){
+    d1=d2;
+    next=next1;
+  }
+  
+  node(int d2){
+    d1=d2;
+    next=nullptr;
+  }
+};
+
+node*convert(vector<int> &arr){
+  if (arr.empty()){
+    return nullptr;
+  }
+  node*head=new node(arr[0]);
+  node* m1=head;
+  
+  for (int i=1; i<arr.size(); i++){
+    node*vec=new node(arr[i]);
+    m1->next=vec;
+    m1=vec;
+  }
+  return head;
+}
+
+
+
+node*reverse(node*head){
+  
+  if (head==nullptr || head->next==nullptr){
+    return head;
+  }
+  
+  node*newhead=reverse(head->next);
+  node*front=head->next;
+  front->next=head;
+  head->next=nullptr;
+  return newhead;
+  
+}
+
+int main() 
+{
+ vector<int>arr={0,1,2};
+ 
+ node* heap=convert(arr);
+ node* temp=heap;
+ node*front=nullptr;
+ node*prev=heap;
+ node*vec=heap;
+  node*you=heap;
+
+ int m=2;
+ int n=0;
+ while (prev!=nullptr){
+   n++;
+   prev=prev->next;
+ }
+ cout<<n<<endl;
+  int k=k%n;
+  int p=n-k;
+
+  int count=0;
+  while (vec!=nullptr){
+     if (count==k){
+    front= vec->next;
+    vec->next=nullptr;
+    break;
+  }
+  vec=vec->next;
+  count++;
+    
+  }
+  node*a=reverse(you);
+  node*b=reverse(front);
+  
+  temp->next=b;
+    heap=a;
+    
+ node*d=reverse(heap);
+ 
+ 
+ while (d!=nullptr){
+   cout<<d->d1<<"  ";
+   d=d->next;
+ }
+ 
+   
+}
+Merge two sorted lists 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode*m1= list1;
+         ListNode*m2= list2;
+      ListNode*dummy=new  ListNode(-1);
+       ListNode*odd=dummy;
+       
+         while (m1!=nullptr  && m2!=nullptr){
+            if (m1->val<=m2->val){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+            }
+            else {
+                odd->next=m2;
+                odd=odd->next;
+                m2=m2->next;
+            }
+         }
+         while (m1==nullptr  && m2!=nullptr){
+            odd->next=m2;
+            odd=odd->next;
+            m2=m2->next;
+         }
+         while (m2==nullptr  && m1!=nullptr){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+         }
+
+        return dummy->next;
+    }
+};
+
+Flatten the linked list 
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+  public:
+  int d1;
+  node* next;
+  node*bottom;
+  public:
+  node(int d2, node*next1,node*bottom1){
+    d1=d2;
+    next=next1;
+    bottom=bottom1;
+  }
+  
+  node(int d2){
+    d1=d2;
+    next=nullptr;
+    bottom=nullptr;
+  }
+};
+
+node*convert(vector<vector<int>> &arr){
+  int m=arr.size();
+  int n=arr[0].size();
+  node*head=nullptr;
+  node*temp=nullptr;
+  node*t1=nullptr;
+  if (arr.empty()){
+    return nullptr;
+  }
+  for (int i=0; i<n; i++){
+    if (head==nullptr){
+      node*you=new node(arr[0][i]);
+      head=you;
+      temp=head;
+      t1=temp;
+    }
+    else {
+      node*you1=new node(arr[0][i]);
+
+        temp->next=you1;
+        temp=temp->next;
+        t1=temp;
+      }
+    
+    for (int j=1; j<m ; j++){
+      node*you2 =new node(arr[j][i]);
+
+      t1->bottom=you2;
+      t1=t1->bottom;
+    }
+  }
+ 
+  
+  return head;
+}
+    node* merge(node* list1, node* list2) {
+        node*m1= list1;
+         node*m2= list2;
+      node*dummy=new  node(-1);
+       node*odd=dummy;
+       
+         while (m1!=nullptr  && m2!=nullptr){
+            if (m1->d1<=m2->d1){
+            odd->bottom=m1;
+            odd=odd->bottom;
+            m1=m1->bottom;
+            }
+            else {
+                odd->bottom=m2;
+                odd=odd->bottom;
+                m2=m2->bottom;
+            }
+         }
+         if  (m1==nullptr  && m2!=nullptr){
+            odd->bottom=m2;
+            odd=odd->bottom;
+         }
+         if  (m2==nullptr  && m1!=nullptr){
+            odd->bottom=m1;
+            odd=odd->bottom;
+         }
+         
+
+        return dummy->bottom;
+    }
+
+
+node*reverse(node*head){
+  if (head->next==nullptr){
+    return head;
+  }
+  
+  node*q=reverse(head->next);
+  return merge(head,q);
+}
+
+int main() 
+{
+ vector<vector<int>>arr={{1,2,3},{4,5,6},{7,8,9},{10,11,12}};
+ 
+ node* heap=convert(arr);
+ node*temp=heap;
+ node*t2=temp;
+
+ 
+ node*add=reverse(heap);
+  while (add != nullptr) {
+   cout<<add->d1<<"  ";
+    add = add->bottom;
+}
+
+}
+
+Merge k sorted linked lists
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+  ListNode* merge(ListNode* list1, ListNode* list2) {
+        ListNode*m1= list1;
+         ListNode*m2= list2;
+      ListNode*dummy=new  ListNode(-1);
+       ListNode*odd=dummy;
+       
+         while (m1!=nullptr  && m2!=nullptr){
+            if (m1->val<=m2->val){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+            }
+            else {
+                odd->next=m2;
+                odd=odd->next;
+                m2=m2->next;
+            }
+         }
+         while (m1==nullptr  && m2!=nullptr){
+            odd->next=m2;
+            odd=odd->next;
+            m2=m2->next;
+         }
+         while (m2==nullptr  && m1!=nullptr){
+            odd->next=m1;
+            odd=odd->next;
+            m1=m1->next;
+         }
+
+        return dummy->next;
+    }
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if (lists.size()==0){
+    return nullptr;
+}
+        ListNode*head=lists[0];
+ListNode*temp=head;
+
+        for (int i=1; i<lists.size(); i++){
+
+            ListNode*head1=merge(temp,lists[i]);
+            temp=head1;
+
+        }
+        return temp;
+        
+    }
+};
+
+Merge k sorted linked lists  using pq
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ 
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if (lists.size()==0){
+    return nullptr;
+}
+ListNode*temp=new ListNode(-1);
+ListNode*odd=temp;
+ListNode*you=nullptr;
+
+        priority_queue<pair<int,ListNode*>,
+        vector<pair<int,ListNode*>>,greater<pair<int,ListNode*>>>pq;
+
+for (int i=0; i<lists.size(); i++){
+    if (lists[i]!=nullptr){
+    pq.push({lists[i]->val,lists[i]});
+
+    }
+}
+        
+        while (!pq.empty()){
+            auto p=pq.top();
+          
+            you=p.second;
+            odd->next=you;
+            odd=odd->next;
+            pq.pop();
+            if (you->next!=nullptr){
+                pq.push({you->next->val,you->next});
+            }
+
+        }
+        return temp->next;
+
+    };
+};
+
+Clone a list with next and random pointers
+
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+       Node*temp=head;
+Node*dummy=new Node(-1);
+Node*odd=dummy;
+map<Node*,Node*>mpp;
+       while (temp!=nullptr){
+        Node*you=new Node(temp->val);
+        mpp[temp]=you;
+
+temp=temp->next;
+       } 
+       temp=head;
+        while (temp!=nullptr){
+            odd->next=mpp[temp];
+            odd=odd->next;
+            odd->random=mpp[temp->random];
+
+            temp=temp->next;
+        }
+        return dummy->next;
+Clone a list with next and random pointers
+
+
+    }
+};
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+       Node*temp=head;
+Node*dummy=new Node(-1);
+Node*odd=dummy;
+Node*front=nullptr;
+       while (temp!=nullptr){
+        Node*you=new Node(temp->val);
+        front = temp->next;
+        temp->next=you;
+        you->next=front;
+        temp=front;
+
+       } 
+       temp=head;
+
+       while (temp!=nullptr && temp->next!=nullptr){
+        if (temp->random!=nullptr){
+         temp->next->random=temp->random->next;
+        }
+        else {
+            temp->next->random=nullptr;
+        }
+        temp=temp->next->next;
+       }
+
+       temp=head;
+       while (temp!=nullptr && temp->next!=nullptr){
+        odd->next=temp->next;
+        temp->next=temp->next->next;
+        odd=odd->next;
+        temp=temp->next;
+       }
+       return dummy->next;
+      
+    }
+};
+
+Design a browser history :
+class node{
+    public:
+    string data;
+    node*next;
+    node*back;
+
+   node(string data1 , node*next1,node*back1){
+    data=data1;
+    next=next1;
+    back=back1;
+   }
+
+    node(string  data1){
+        data=data1;
+        next=nullptr;
+        back=nullptr;
+    }
+};
+
+class BrowserHistory {
+public:
+node*current;
+    BrowserHistory(string homepage) {
+        current= new node (homepage);
+        
+    }
+    
+    void visit(string url) {
+        node*you=new node(url);
+        current->next=you;
+        you->back=current;
+        current=current->next;
+       
+        
+    }
+    
+    string back(int steps) {
+        while (steps!=0){
+            if (current->back!=nullptr){
+                current=current->back;
+                steps--;
+            }
+            else {
+                break;
+
+            }
+        }
+        return current->data;
+        
+    }
+    
+    string forward(int steps) {
+          while (steps!=0){
+            if (current->next!=nullptr){
+                current=current->next;
+                steps--;
+            }
+            else {
+                break;
+            }
+        }
+        return current->data;
+        
+    }
+};
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory* obj = new BrowserHistory(homepage);
+ * obj->visit(url);
+ * string param_2 = obj->back(steps);
+ * string param_3 = obj->forward(steps);
+ */
+
+Rotate list 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ 
+
+ListNode*rotate(ListNode*head,int k){
+  ListNode*vec=head;
+  ListNode*temp=nullptr;
+  int count=0;
+  while (vec!=nullptr){
+    count++;
+    if (vec->next==nullptr){
+      temp=vec;
+      
+    }
+        vec=vec->next;
+
+    
+  }
+  int m=k%count;
+  if (m==0){
+    return head;
+  }
+  int n=count-m;
+  if (n==0){
+    return head;
+  }
+ListNode*you=head;
+  int p=1;
+  ListNode*front=nullptr;
+  while (you!=nullptr){
+    
+    if (p==n){
+      front=you->next;
+      you->next=nullptr;
+      break;
+    }
+    p++;
+    you=you->next;
+  }
+  temp->next=head;
+  return front;
+  
+  
+}
+
+
+
+ 
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head==nullptr){
+            return nullptr;
+        }
+        if (head->next==nullptr){
+            return head;
+        }
+        if (k==0){
+            return head;
+        }
+ ListNode*del=rotate(head,k);
+
+ return del;
+
+       
+        
+    }
+};
+
+Find the intersection of given two linked lists 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* temp1=headA;
+        ListNode*temp2=headB;
+        if ((temp1==nullptr) || (temp2==nullptr)){
+            return nullptr;
+        }
+
+        while (temp1!=nullptr && temp2!=nullptr){
+            if (temp1==temp2){
+                return temp1;
+            }
+                temp1=temp1->next;
+            temp2=temp2->next;
+            if (temp1==nullptr && temp2==nullptr){
+                return nullptr;
+            }
+            if(temp1==nullptr){
+                temp1=headB;
+            }
+            if(temp2==nullptr){
+                temp2=headA;
+            }
+            
+        
+
+        }
+        return nullptr;
+        
+    }
+};
+
