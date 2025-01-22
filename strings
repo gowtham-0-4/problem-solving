@@ -646,9 +646,6 @@ int ato(string s){
       }
       i++;
     }
-    else if (s[i]==' '){
-      i++;
-    }
     else {
       break;
     }
