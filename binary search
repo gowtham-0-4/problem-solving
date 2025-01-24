@@ -1,0 +1,1080 @@
+You are given an array 'arr' sorted in non-decreasing order and a number 'x'. You must return the index of the lower bound of 'x'.
+
+Note:
+1. For a sorted array 'arr', 'lower_bound' of a number 'x' is defined as the smallest index 'idx' such that the value 'arr[idx]' is not less than 'x'.If all numbers are smaller than 'x', then 'n' should be the 'lower_bound' of 'x', where 'n' is the size of array.
+
+2. Try to do this in O(log(n)).
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int value(int low, int high, vector<int>arr, int n,int x){
+    if (low>high){
+    return n;
+  }
+  int mid=(low+high)/2;
+
+  if (arr[mid]==x ){
+     if (arr[mid-1]==x){
+
+      high=mid-1;
+  
+      return value(low,high,arr,n,x);
+    }
+
+    return mid;
+  }
+ 
+  if (arr[mid]>x){
+      if (arr[mid]-1==x){
+      return mid;
+    }
+if (arr[mid-1]<x && arr[mid]>x){
+      return mid;
+    }
+
+    high=mid-1;
+  
+   return  value(low,high,arr, n,x);
+   
+  }
+  else{
+      
+        low=mid+1;
+    return value(low,high, arr, n,x);
+  }
+}
+
+
+int lowerBound(vector<int> arr, int n, int x) {
+  int low=0,high=n-1;
+
+  return value(low,high,arr,n,x);
+  // Write your code here
+}
+There is an integer array nums sorted in ascending order (with distinct values).
+Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
+Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+You must write an algorithm with O(log n) runtime complexity.
+#include <bits/stdc++.h>
+using namespace std;
+
+int medium(int low, int high, const vector<int>& nums, int target, int n, int z) {
+    if (low > high) {
+        return -1;
+    }
+
+    int mid = low + (high - low) / 2; // Prevent overflow
+    if (nums[mid] == target) {
+        return mid;
+    }
+
+    if (nums[mid] > target) {
+        return medium(low, mid - 1, nums, target, n, z);
+    } else {
+        return medium(mid + 1, high, nums, target, n, z);
+    }
+}
+
+int value(int low, int high, const vector<int>& nums, int target, int n, int z) {
+    if (low > high) {
+        // Handle case where high becomes invalid
+        if (high >= 0 && nums[high] != target && n == 1) {
+            return -1;
+        }
+        return medium(z + 1, n - 1, nums, target, n, z);
+    }
+
+    int mid = low + (high - low) / 2; // Prevent overflow
+    if (nums[mid] == target) {
+        return mid;
+    }
+
+    if (nums[mid] > target) {
+        return value(low, mid - 1, nums, target, n, z);
+    } else {
+        return value(mid + 1, high, nums, target, n, z);
+    }
+}
+int pivot (vector<int>nums ,int n,int l,int h){
+  int op=(l+h)/2;
+  if (n==1){
+    return op;
+  }
+ 
+  if (nums[op]<nums[0] && (op-1)>=0){
+   
+   
+   return pivot(nums,n,l,h-1);
+  }
+  if ((op+1)<=(n-1)){
+  if (nums[op]<nums[op+1] ) {
+ 
+     return pivot(nums,n,l,h+1);
+  }
+}
+     else{
+
+
+     return op;
+  }
+
+return op;
+
+}
+
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int n = nums.size();
+        int low = 0;
+        int l=0,h=n-1;
+       int m= pivot(nums,n,l,h);
+     
+      
+        int z = m;
+
+        return value(low, m, nums, target, n, z);
+    
+    }
+};
+
+
+Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+•	[4,5,6,7,0,1,2] if it was rotated 4 times.
+•	[0,1,2,4,5,6,7] if it was rotated 7 times.
+Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+You must write an algorithm that runs in O(log n) time.
+#include <bits/stdc++.h>
+using namespace std;
+int pivot (vector<int>nums ,int n,int l,int h){
+  int op=(l+h)/2;
+  if (n==1){
+    return op;
+  }
+ 
+  if (nums[op]<nums[0] && (op-1)>=0){
+   
+   
+   return pivot(nums,n,l,h-1);
+  }
+  if ((op+1)<=(n-1)){
+  if (nums[op]<nums[op+1] ) {
+ 
+     return pivot(nums,n,l,h+1);
+  }
+}
+     else{
+
+
+     return op;
+  }
+
+return op;
+
+}
+
+
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int n=nums.size();
+  int l=0,h=n-1;
+  
+  int m= pivot(nums,n,l,h);
+  if ((m+1)<=(n-1)){
+      return nums[m+1];
+  }
+  else {
+      m=0;
+      return nums[m];
+  }
+        
+    }
+};
+
+Find sqrt root in logn
+int floorSqrt(int n)
+{
+      int low=1;
+  int high=n;
+
+  while (low<=high){
+    int mid=(low+high)/2;
+    int p=mid*mid;
+    if (p==n){
+      return mid;
+    }
+  if (p<n){
+    low=mid+1;
+  }
+  else{
+    high=mid-1;
+  }
+}
+   return high;
+    // Write your code here.
+}
+
+
+34. Find First and Last Position of Element in Sorted Array
+Solved
+Medium
+Topics
+Companies
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+If target is not found in the array, return [-1, -1].
+You must write an algorithm with O(log n) runtime complexity.
+ 
+Example 1:
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: [3,4]
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int pivot(int low,int high,int n,vector<int>nums,int target,int z){
+
+  if (low>high){
+    if (n==1){
+        return 0;
+    }
+   return z;
+  }
+  int mid=low+(high-low)/2;
+  
+  
+   if (nums[mid]>target){
+    high=mid-1;
+    return pivot(low,high,n,nums,target,z);
+  }
+   if (nums[mid]<target){
+    low=mid+1;
+    return pivot(low,high,n,nums,target,z);
+  }
+  if (nums[mid]==target){
+        if ((mid+1)<n && (nums[mid+1]==target)){
+            low=mid+1;
+    return pivot(low,high,n,nums,target,z);
+    }
+    return mid;
+  }
+  return mid;
+}
+
+int binary(int low,int high,int n, vector<int>nums,int target,int z){
+  
+  if (low>high){
+    return -1;
+  }
+  int mid=low+(high-low)/2;
+  
+  
+   if (nums[mid]>target){
+    high=mid-1;
+    return binary(low,high,n,nums,target,z);
+  }
+   if (nums[mid]<target){
+    low=mid+1;
+    return binary(low,high,n,nums,target,z);
+  }
+  if (nums[mid]==target){
+    if ((mid-1>=0) && (nums[mid-1]==target)){
+      high=mid-1;
+    return binary(low,high,n,nums,target,z);
+    }
+    return mid;
+  }
+  
+return mid;
+}
+
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+         int n=nums.size();
+  
+  int low=0;
+  int high=n-1;
+
+  int z=binary(low,high,n,nums,target,z);
+  if (z<0){
+    return {-1,-1};
+  }
+  int v=pivot(z+1,n-1,n,nums,target, z);
+  
+  return {z,v};
+        
+    }
+};
+Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+Return the minimum integer k such that she can eat all the bananas within h hours.
+ 
+Example 1:
+Input: piles = [3,6,7,11], h = 8
+Output: 4
+#include <bits/stdc++.h>
+using namespace std;
+
+long long binary(int s2,int n, vector<int>piles,int h){
+  long long  m=0;
+  for (int i=0; i<n; i++){
+     m+=(long long)(piles[i]+s2-1LL)/s2;
+
+     
+ 
+  }
+  return m;
+}
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+
+        int n=piles.size();
+       
+  
+  int low=1;
+  long long  high=*max_element(piles.begin(),piles.end());
+
+int g;
+  while(low<=high){
+   
+   long long   mid=low+(high-low)/2;
+  
+ 
+   long long  z=binary(mid,n,piles,h);
+    
+
+    if (z>h){
+           low=mid+1;
+    }
+    if (z<=h ){
+     
+       g=mid;
+       high=mid-1;
+    }
+  }
+   return g;
+        
+        
+    }
+};
+
+
+You are given an integer array bloomDay, an integer m and an integer k.
+You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden.
+The garden consists of n flowers, the ith flower will bloom in the bloomDay[i] and then can be used in exactly one bouquet.
+Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets return -1.
+#include <bits/stdc++.h>
+using namespace std;
+int possible(int low,int no,int m, int k,int n,vector<int> nums){
+  int count=0;
+  no=0;
+  cout<<"low2    "<<low<<endl;
+  for (int i=0; i<n; i++){
+    if (nums[i]<=low){
+      count++;
+    }
+    else{
+      no+=count/k;
+      cout<<"count  "<<count<<endl;
+      count=0;
+    }
+  }
+  no+=count/k;
+  cout<<"no   "<<no<<endl;
+  
+  if (no>=m){
+    return true;
+  }
+  else{
+    return false;
+  }
+  
+}
+
+class Solution {
+public:
+    int minDays(vector<int>& bloomDay, int m, int k) {
+
+      
+        int n=bloomDay.size();
+          if (n<(m*k)){
+            return -1;
+          }
+  
+  int high = *max_element(bloomDay.begin(), bloomDay.end());
+  int low=*min_element(bloomDay.begin(), bloomDay.end());
+  int no=0;
+
+  
+  while(low<=high){
+    int mid=(low+high)/2;
+    if (possible(mid,no,m,k,n,bloomDay)==true){
+      high=mid-1;
+   
+    }
+    else{
+      low=mid+1;
+  
+    }
+    
+  }
+  return low;
+        
+    }
+};
+
+A conveyor belt has packages that must be shipped from one port to another within days days.
+The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.
+Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within days days
+#include <bits/stdc++.h>
+using namespace std;
+
+int binary(const vector<int>& arr, int day, int k, int n, int mid) {
+    int sum = 0;
+  cout<<"mid  "<<mid<<endl;
+    for (int i = 0; i < n; i++) {
+       
+       if (arr[i] > mid) {
+         cout<<"arri   "<<arr[i]<<"   k+1   "<<k+1<<endl;
+         return k + 1;
+       }
+
+        if (sum <= mid) {
+             sum += arr[i];
+            cout << "s2  " << sum << endl;
+        }
+        if (sum > mid) {
+           
+            sum = arr[i];
+              cout << "sum 2  " << sum << endl;
+            day++;
+            cout << "day  " << day << endl;
+        }
+    }
+
+    return day;
+     // Exactly k days
+}
+
+int main() {
+    vector<int> arr = {1,2,3,1,1};
+    int n = arr.size();
+    int day = 1, k = 4;
+    int low = *min_element(arr.begin(), arr.end());
+    int high = accumulate(arr.begin(), arr.end(), 0); // Sum of all elements
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        cout<<"low  "<<low<<"   high    "<<high<<endl;
+
+        int z= binary(arr, day, k, n, mid);
+        cout<<"z  "<<z<<endl;
+        if (z<=k){
+           high = mid - 1;
+        }
+           
+        else {
+            low = mid + 1;
+        }
+    }
+    cout << "low   " << low;
+}
+You are given an array 'arr' consisting of 'n' integers which denote the position of a stall.
+
+You are also given an integer 'k' which denotes the number of aggressive cows.
+
+You are given the task of assigning stalls to 'k' cows such that the minimum distance between any two of them is the maximum possible.
+
+Print the maximum possible minimum distance.
+#include <bits/stdc++.h>
+using namespace std;
+
+int binary(int l,int m,int k,int sum,vector<int> arr,int n){
+  sum=0,m=1;
+
+  for (int i=0; i<n; i++){
+    int p=arr[i]-arr[sum];
+    
+    cout<<"l1    "<<l<<endl;
+      if ((p>=l) && arr[i]!=arr[sum]){
+        cout<<"arr[i]-arr[sum]   "<<arr[i]-arr[sum]<<endl;
+        
+          sum=i;
+          cout<<"sum  "<<arr[sum]<<endl;
+          m++;
+          cout<<"m  "<<m<<endl;
+      }
+  }
+  cout<<"minimun    "<<length<<endl;
+  return m;
+}
+
+int main(){
+  vector <int> arr={4,2,1,3,6};
+  int n=arr.size();
+  sort(arr.begin(),arr.end());
+  
+  int low = 1; // Minimum distance possible
+    int high = arr[n - 1] - arr[0];
+    
+    int m=1,k=2,sum=0;
+  int q;
+  while(low<=high){
+    
+    int mid=low+(high-low)/2;
+     cout<<"mid  "<<mid<<endl;
+    
+   int z= binary(mid,m,k,sum,arr,n);
+
+    if (z>=k ){
+      q=mid;
+       low=mid+1;
+        cout<<"original  "<<low<<endl;
+    }
+    if (z<k && z!=k) {
+     high=mid-1;
+      
+      cout<<"high  "<<high<<endl;
+    }
+    
+       cout<<"low   "<<low<<"    hhhigh  "<<high<<endl;
+  }
+  cout<<"low  "<<q<<endl;
+}
+
+Given an array ‘arr’ of integer numbers, ‘arr[i]’ represents the number of pages in the ‘i-th’ book.
+
+There are ‘m’ number of students, and the task is to allocate all the books to the students.
+
+Allocate books in such a way that:
+1. Each student gets at least one book.
+2. Each book should be allocated to only one student.
+3. Book allocation should be in a contiguous manner.
+
+You have to allocate the book to ‘m’ students such that the maximum number of pages assigned to a student is minimum.
+
+If the allocation of books is not possible, return -1.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int binary(int s2,int sum,vector<int>arr, int m,int k,int n){
+  
+
+  for (int i=n-1; i>=0; i--){
+    if (sum<=s2){
+      sum+=arr[i];
+
+    }
+    if (sum>s2){
+       
+    
+            sum=arr[i];
+   
+      k++;
+    }
+  }
+   return k;
+
+  
+  }
+  
+
+
+
+
+int findPages(vector<int>& arr, int n, int m) {
+ 
+    if (m>n){
+        return -1;
+    }
+
+  int low=*max_element(arr.begin(),arr.end());
+  
+  int high=accumulate(arr.begin(),arr.end(),0);
+  
+  int sum=0,k=1;
+  int max= INT_MAX;
+  
+  while (low<=high){
+    int mid=low+(high-low)/2;
+   
+    int z=binary(mid,sum,arr,m,k,n);
+    
+     if (z>m){
+  
+      low=mid+1;
+    }
+    else {
+      high=mid-1;
+    }
+   
+  }
+  
+return low;
+    // Write your code here.
+}
+
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+The overall run time complexity should be O(log (m+n)).
+ 
+Example 1:
+Input: nums1 = [1,3], nums2 = [2]
+Output: 2.00000
+Explanation: merged array = [1,2,3] and median is 2.
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+double  binary(int low,int high, vector<int>a,vector<int>b,int m, int n){
+  int l1=INT_MIN;
+  int l2=INT_MIN;
+  int r1=INT_MAX;
+   int r2=INT_MAX;
+   int k=m+n;
+   int p=(m+n+1)/2;
+   cout<<"low   "<<low<<"  high   "<<high<<endl;
+   
+   cout<<"p  "<<p<<endl;
+   int mid1=low+(high-low)/2;
+   cout<<"mid1  "<<mid1<<endl;
+   int mid2=p-mid1;
+     cout<<"mid2  "<<mid2<<endl;
+   if ((mid1-1)>=0){
+     l1=a[mid1-1];
+       cout<<"l1  "<<l1<<endl;
+   }
+   if ((mid2-1)>=0){
+     l2=b[mid2-1];
+      cout<<"l2  "<<l2<<endl;
+   }
+   
+   if (mid1<m){
+     r1=a[mid1];
+      cout<<"r1  "<<r1<<endl;
+   }
+   if (mid2<n){
+     r2=b[mid2];
+        cout<<"r2  "<<r2<<endl;
+   }
+   
+   if (l1>r2){
+     high=mid1-1;
+      return binary(low,high,a,b,m,n);
+     
+   }
+   if (l2>r1){
+     low=mid1+1;
+      return binary(low,high,a,b,m,n);
+   }
+   
+   
+   if ((l1<=r2) && (l2<=r1)){
+     
+   if (k % 2 == 1) {
+    return (double)(max(l1, l2));
+}
+
+     cout<<"gowtham  "<<endl;
+      cout<<"ori1   "<<l1<<"    or12   "<<l2<<endl; 
+            cout<<"ori3   "<<r1<<"     or4   "<<r2<<endl; 
+
+     double x=max(l1,l2);
+      double y=min(r1,r2);
+      cout<<"x   "<<x<<"   y  "<<y<<endl;
+     
+     double w=  (x+y) /2.0;
+     return w;
+   }
+   
+   return 1;
+}
+
+double search(vector<int>a, vector<int>b){
+   int m=a.size();
+  int n=b.size();
+
+  if (m>n){
+     return search (b,a);
+  }
+int low=0;
+int high=m;
+  cout<<"low1   "<<low<<"high1   "<<high<<endl;
+  return binary(low,high,a,b,m,n);
+  
+ 
+  
+}
+
+
+int main(){
+  vector<int>a={2,4,6};
+  vector<int>b={1,3,5};
+ 
+ double z=search(a,b);
+ 
+  cout<<"z  "<<z<<endl;
+
+}
+You are given a sorted array ‘arr’ of length ‘n’, which contains positive integer positions of ‘n’ gas stations on the X-axis.
+
+You are also given an integer ‘k’.
+
+You have to place 'k' new gas stations on the X-axis.
+
+You can place them anywhere on the non-negative side of the X-axis, even on non-integer positions.
+ 
+Let 'dist' be the maximum value of the distance between adjacent gas stations after adding 'k' new gas stations.
+Find the minimum value of dist.
+
+Example:
+Input: ‘n' = 7 , ‘k’=6, ‘arr’ = {1,2,3,4,5,6,7}.
+
+Answer: 0.5
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+  vector<int>arr={1,2,3,4,5,6,7};
+  int n=arr.size();
+  priority_queue<pair<long double ,int>>pq;
+  vector<int>hash(n-1,0);
+  int k=6;
+  
+  for (int i=0; i<=n-1; i++){
+    if ((i+1)<=n-1){
+      long double seg=arr[i+1]-arr[i];
+      pq.push({seg,i});
+    }
+  }
+  
+  for (int i=0; i<k; i++){
+    auto tp=pq.top();
+    int ind=tp.second;
+    pq.pop();
+    
+    hash[ind]++;
+    long double old=arr[ind+1]-arr[ind];
+    long double news=old/ (long double)(hash[ind]+1);
+    pq.push({news,ind});
+  }
+  cout<<pq.top().first;
+  
+}
+Search in 2D matrix
+#include<bits/stdc++.h>
+using namespace std;
+
+bool binary(int low,int high, vector<vector<int>>matrix,int target,int n,int m,int p,int q){
+ 
+    if (low>high){
+      cout<<"false  "<<endl;
+        return false;
+    }
+    int mid=low+(high-low)/2;
+    cout<<"mid  "<<mid<<endl;
+    if (p<m && q<n){
+        p=mid/n;
+         q=(mid%n);
+    }
+  
+  
+    
+    cout<<"p  "<<p<<"  q  "<<q<<endl;
+    int mid1=matrix[p][q];
+    if (m==1 && n==1){
+      if (mid1==target){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    if (mid1==target){
+      cout<<"mid1  "<<mid1<<endl;
+        return true;
+    }
+    if (mid1< target){
+            cout<<"mid2  "<<mid1<<endl;
+
+        low=mid+1;
+                cout<<"low1  "<<low<<"high 1  "<<high<<endl;
+
+        return binary(low,high,matrix,target,n,m,p,q);
+    }
+      if (mid1> target){
+              cout<<"mid3  "<<mid1<<endl;
+
+        high=mid-1;
+        cout<<"low2  "<<low<<"high 2  "<<high<<endl;
+        return binary(low,high,matrix,target,n,m,p,q);
+    }
+    return false;
+}
+
+
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+           int m = matrix.size();    
+           int n = matrix[0].size();
+            int low= 0;
+            int high=(m*n)-1;
+            int p=0,q=0;
+
+            return binary(low,high,matrix,target,n,m,p,q);
+
+        
+    }
+
+
+
+int main(){
+  vector<vector<int>>matrix={{1,1}};
+  int target=2;
+  
+  bool z= searchMatrix(matrix,target);
+  
+  cout<<z<<endl;
+  
+  
+
+  
+}
+A peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom.
+Given a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j].
+You may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.
+You must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.
+ #include <bits/stdc++.h>
+using namespace std;
+
+int find(int m1,vector<vector<int>>mat,int m,int l,int n,int length){
+  int q=m1%n;
+  length=0;
+  for (int i=0; i<m; i++){
+    if (length<mat[i][q]){
+      length=mat[i][q];
+      cout<<"mat[i][q];    "<<mat[i][q]<<endl;
+      l=i;
+    }
+  }
+  return l;
+  
+}
+
+int main(){
+  vector<vector<int>>mat={{10,30,40,50,20},{100,1,2,3,4}};
+  int m=2,n=5;
+  int low=0,mid=0,l=0,length=0;
+  int high=n-1;
+  
+  
+  while (low<=high){
+    mid=low+(high-low)/2;
+    cout<<"mid   "<<mid<<endl;
+    
+    int z=find(mid,mat,m,l,n,length);
+    
+          cout<<"mat[i][q]; 2   "<<mat[z][mid]<<endl;
+
+    if (mid==0 || mat[z][mid]>mat[z][mid-1] && mid==n-1 || mat[z][mid]>mat[z][mid+1]){
+      cout<<"z "<<z<<"   mid  "<<mid<<endl;
+                cout<<"mat[i][q];3   "<<mat[z][mid]<<endl;
+
+      break;
+    }
+    
+    if (mid+1<=n-1 && mat[z][mid] <mat[z][mid+1]){
+      low=mid+1;
+      
+    }
+       if (mid-1>=0 && mat[z][mid] <mat[z][mid-1]){
+      high =mid-1;
+      
+    }
+  }
+}
+Problem statement
+Send feedback
+You are given a row-wise sorted matrix 'mat' of size m x n where 'm' and 'n' are the numbers of rows and columns of the matrix, respectively.
+
+Your task is to find and return the median of the matrix.
+
+Note:
+'m' and 'n' will always be odd.
+
+Example:
+Input: 'n' = 5, 'm' = 5
+'mat' = 
+[     [ 1, 5, 7, 9, 11 ],
+      [ 2, 3, 4, 8, 9 ],
+      [ 4, 11, 14, 19, 20 ],
+      [ 6, 10, 22, 99, 100 ],
+      [ 7, 15, 17, 24, 28 ]   ]
+
+Output: 10
+
+Explanation: If we arrange the elements of the matrix in the sorted order in an array, they will be like this-
+
+1 2 3 4 4 5 6 7 7 8 9 9 10 11 11 14 15 17 19 20 22 24 28 99 100 
+
+So the median is 10, which is at index 12, which is midway as the total elements are 25, so the 12th index is exactly midway. Therefore, the answer will be 10. 
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int binary(int low,int high,vector<int>arr,int target){
+    int m1=(low+high)/2;
+  if (low>high){
+   
+
+    return m1;
+  }
+
+ 
+  if (arr[m1-1]==target){
+
+    return m1;
+    
+  }
+  if (arr[m1-1]<target){
+    low=m1+1;
+   return  binary(low,high,arr,target);
+  }
+   if (arr[m1-1]>target){
+    high=m1-1;
+   return  binary(low,high,arr,target);
+  }
+  return m1+1;
+}
+
+int search(int s2, vector<vector<int>>mat,int m,int n){
+   int low=1;
+    int high=n;
+int sum=0;
+for (int i=0; i<m; i++){
+ int y=binary(low,high,mat[i],s2);
+ if (y!=0){
+ sum=sum+y;
+ }
+
+}
+return sum;
+}
+ 
+
+int median(vector<vector<int>> &matrix, int m, int n) {
+   
+  int l;
+  int h;
+  for (int i=0;i<m; i++){
+     l=min(l,matrix[i][0]);
+    h=max(h,matrix[i][n-1]);
+}
+  while (l<=h){
+    int mid1=(m*n)/2;
+    int mid=(l+h)/2;
+
+    int z= search(mid,matrix,m,n);
+    if (z<=mid1){
+      l=mid+1;
+    }
+    if (z>mid1){
+      h=mid-1;
+    }
+
+    
+  }
+ return l;
+    // Write your code here.
+}
+
+Search in matrix 2
+ 
+
+
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+         int m=matrix.size();
+  int n=matrix[0].size();
+  int i=0, j=n-1;
+
+  while (i<m && j>=0){
+    
+    if (matrix[i][j]==target){
+    return true;
+    }
+    if (matrix[i][j]>target){
+      j--;
+    }
+    else {
+      i++;
+    }
+  }
+  return false;
+        
+    }
+};
+
+Search in sorted matrix 1
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+           int m = matrix.size();    
+           int n = matrix[0].size();
+            int low= 0;
+            int high=(m*n)-1;
+
+            while (low<=high){
+                  int mid=low+(high-low)/2;
+
+                 int p=mid/n;
+                  int q=(mid%n);
+                  int mid1=matrix[p][q];
+      if (m==1 && n==1){
+      if (mid1==target){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    if (mid1==target){
+        return true;
+    }
+    if (mid1< target){
+        low=mid+1;
+       
+    }
+      if (mid1> target){
+        high=mid-1;
+     
+    }
+                
+            }
+
+      return false;  
+    }
+};
