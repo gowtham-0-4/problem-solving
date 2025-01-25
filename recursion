@@ -370,3 +370,208 @@ public:
 return h;  
     }
 };
+
+print all subsets
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>>ans;
+     int n=nums.size();
+     int m=1<<n ;
+        for (int i=0; i<m; i++){
+           vector<int>sub;
+            for (int j=0; j<n; j++){
+                if ((i& ( 1<<j ))!=0){
+                    sub.push_back(nums[j]);
+                }
+            }
+            ans.push_back(sub);
+        }
+        return ans;
+    }
+};
+better strings
+#include <bits/stdc++.h>
+using namespace std;
+void recur(int i,string current,string s,set<string>& result,int n){
+  if (i>=n){
+    if (!current.empty()){
+result.insert(current);
+    }
+
+    return;
+  }
+  
+  current+=s[i];
+  recur(i+1,current,s,result,n);
+  current.pop_back();
+  
+  recur(i+1,current,s,result,n);
+  return;
+}
+
+ 
+
+set<string>q(string s){
+  string current="";
+  set<string>result;
+  int n=s.size();
+  recur(0,current,s,result,n);
+  return result;
+}
+
+class Solution {
+  public:
+    string betterString(string str1, string str2) {
+        string s=str1;
+   string p=str2;
+   
+  
+   
+   
+   set<string>m=q(s);
+   set<string>l=q(p);
+   if (m.size()==l.size()){
+     return s;
+   }
+   
+   if (m.size()>l.size()){
+return s;
+}
+   else {
+return p;
+     
+   }
+  
+        // code here
+    }
+};
+perfect sum problem
+
+  void recur(int sum,vector<int> &arr,vector<int>& temp,int i,int n,int & result,int target){
+      if (i>=n){
+        
+
+
+          if (sum==target){
+
+           result+=1;
+}
+          return ;
+      }
+     
+
+      temp.push_back(arr[i]);
+      sum+=arr[i];
+      
+      recur(sum,arr,temp,i+1,n,result,target);
+      int element=temp.back();
+      temp.pop_back();
+      sum-=element;
+            recur(sum,arr,temp,i+1,n,result,target);
+            return ;
+
+      
+  }
+  int q(vector<int>& arr, int target){
+      int sum=0,i=0;
+      vector<int>temp;
+      int result=0;
+      int n=arr.size();
+            recur(sum,arr,temp,i,n,result,target);
+            return result;
+
+  }
+ 
+    int perfectSum(vector<int>& arr, int target) {
+        // code here
+        int g=q(arr,target);
+        return g;
+    }
+};
+check if there exists subset sum or not 
+#include<bits/stdc++.h>
+  using namespace std;
+bool recur(int sum,vector<int> &arr,int i,int n,int target){
+      if (i>=n){
+        
+
+
+          if (sum==target){
+            return true;
+
+}
+          return false ;
+      }
+
+      sum+=arr[i];
+      bool check=recur(sum,arr,i+1,n,target);
+      if (check==true){
+        return true;
+      }
+
+      sum=sum-arr[i];
+
+           check= recur(sum,arr,i+1,n,target);
+           if (check==true){
+               return true;
+           }
+
+            
+
+      
+  }
+  
+  
+bool isSubsetPresent(int n, int k, vector<int> &a)
+{
+     int sum=0,i=0;
+      vector<int>temp;
+    bool q=  recur(sum,a,i,n,k);
+    return q;
+
+    // Write your code here
+}
+combination sum 1 multiple number of times 
+#include<bits/stdc++.h>
+  using namespace std;
+class Solution {
+public:
+
+  void recur(int sum,vector<int> &arr,vector<int>& temp,int i,int n,vector<vector<int>>& result,int target){
+      if (i>=n|| sum>=target){
+
+          if (sum==target){
+                                  result.push_back(temp);
+
+          }
+          return ;
+      }
+      temp.push_back(arr[i]);
+      sum+=arr[i];
+      
+      recur(sum,arr,temp,i,n,result,target);
+      int element=temp.back();
+      temp.pop_back();
+      sum-=element;
+            recur(sum,arr,temp,i+1,n,result,target);
+            return ;
+
+      
+  }
+  vector<vector<int>>q(vector<int>& arr, int target){
+      int sum=0,i=0;
+      vector<int>temp;
+      vector<vector<int>>result;
+      int n=arr.size();
+            recur(sum,arr,temp,i,n,result,target);
+            return result;
+
+  }
+  
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>p=q(candidates,target);
+        return p;
+    }
+};
