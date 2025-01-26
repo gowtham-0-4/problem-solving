@@ -1,0 +1,64 @@
+combination sum 2
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+  void recur(int sum,vector<int> &arr,vector<int>& temp,int i,int n,vector<vector<int>>& result,int target){
+      if (i>=n|| sum>=target){
+        
+        
+if (sum==target){
+  
+                        result.push_back(temp);
+
+  
+}
+cout<<endl;
+          
+          return ;
+      }
+      temp.push_back(arr[i]);
+      for (int k=0; k<temp.size(); k++){
+          cout<<temp[k]<<" ";
+        }
+      sum+=arr[i];
+      recur(sum,arr,temp,i+1,n,result,target);
+      cout<<"  i  "<<i<<endl;
+
+      if (sum>target)return ;
+
+      
+      int element=temp.back();
+      temp.pop_back();
+      sum-=element;
+
+     while ((i+1)<n && arr[i]==arr[i+1]){
+       i++;
+     }
+            recur(sum,arr,temp,i+1,n,result,target);
+            return ;
+
+      
+  }
+  vector<vector<int>>q(vector<int>& arr, int target,int n){
+      int sum=0,i=0;
+      vector<int>temp;
+      vector<vector<int>>result;
+            recur(sum,arr,temp,i,n,result,target);
+            return result;
+
+  }
+    
+
+
+int main() 
+{
+  vector<int>a={2,5,2,1,2};
+      int target=5;
+  sort(a.begin(),a.end());
+
+  int n=a.size();
+
+         vector<vector<int>>p=q(a,target,n);
+}
