@@ -575,3 +575,806 @@ public:
         return p;
     }
 };
+
+combination sum 2
+class Solution {
+public:
+
+
+
+  void recur(int sum,vector<int> &arr,vector<int>& temp,int i,int n,vector<vector<int>>& result,int target){
+      if (sum==target){
+          result.push_back(temp);
+return;
+  
+}
+      if (i>=n|| sum>=target){
+        
+          return ;
+      }
+      temp.push_back(arr[i]);
+      sum+=arr[i];
+
+      recur(sum,arr,temp,i+1,n,result,target);
+
+      
+      int element=temp.back();
+      temp.pop_back();
+            int k=i;
+
+      for ( k=i; k<n; k++){
+        if ((k+1)<n && (arr[k]!=arr[k+1])){
+          break;
+        }
+      }
+      
+      if (sum<=target){
+              sum-=element;
+                          recur(sum,arr,temp,k+1,n,result,target);
+
+
+        
+      }
+            return ;
+
+      
+  }
+  vector<vector<int>>q(vector<int>& arr, int target,int n){
+      int sum=0,i=0;
+      vector<int>temp;
+      vector<vector<int>>result;
+            recur(sum,arr,temp,i,n,result,target);
+            return result;
+
+  }
+    
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+      int i=0;
+  
+  sort(candidates.begin(),candidates.end());
+
+  int n=candidates.size();
+
+         vector<vector<int>>p=q(candidates,target,n);
+         
+         return p;
+    }
+};
+
+subset sum 2
+class Solution {
+public:
+
+
+  void recur(vector<int> &arr,vector<int>& temp,int i,int n,vector<vector<int>>& result){
+      if (i>=n){
+        
+        
+  
+                        result.push_back(temp);
+
+  
+
+          
+          return ;
+      }
+      temp.push_back(arr[i]);
+
+      recur(arr,temp,i+1,n,result);
+
+      
+      int element=temp.back();
+      temp.pop_back();
+            int k=i;
+
+      for ( k=i; k<n; k++){
+        if ((k+1)<n && (arr[k]!=arr[k+1])){
+          break;
+        }
+      }
+            recur(arr,temp,k+1,n,result);
+            return ;
+
+      
+  }
+  vector<vector<int>>q(vector<int>& arr,int n){
+      int i=0;
+      vector<int>temp;
+      vector<vector<int>>result;
+            recur(arr,temp,i,n,result);
+            return result;
+
+  }
+    
+
+   
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+         int i=0;
+  
+  sort(nums.begin(),nums.end());
+
+  int n=nums.size();
+
+         vector<vector<int>>p=q(nums,n);
+         
+         return p;
+        
+    }
+};
+
+combination sum 3
+#include<bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+
+void recur(int sum,int target,int k,int j,vector<vector<int>>&result,vector<int>&temp){
+  if (sum==target &&  temp.size()==k){
+    
+  
+            result.push_back(temp);
+           
+            return ;
+        }
+    if ((temp.size()>=k) || (j>9) || (sum>=target)){
+      
+ 
+        return ;
+    }
+sum+=j;
+    temp.push_back(j);
+ 
+
+recur(sum,target,k,j+1,result,temp);
+temp.pop_back();
+
+if (sum<=target && j<=9){
+  sum-=j;
+recur(sum,target,k,j+1,result,temp);
+  
+}
+return ;
+
+
+
+}
+vector<vector<int>>q(int k,int target){
+    int sum=0,j=1;
+    vector<vector<int>>result;
+    vector<int>temp;
+    recur(sum,target,k,j,result,temp);
+    return result;
+
+}
+    vector<vector<int>> combinationSum3(int k, int n) {
+                  vector<vector<int>>p=q(k,n);
+                  return p;
+
+    }
+};
+
+letter combination 
+class Solution {
+public:
+
+void recur(vector<string>&k,string s,vector<string> &m,string digits,int idx){
+  if (idx>=digits.size()){
+    m.push_back(s);
+    return;
+  }
+  
+
+  int n=digits[idx]-'0';
+  
+  for (int i=0; i<k[n-1].size(); i++){
+    
+    recur(k,  s+k[n-1][i],m,digits,idx+1);
+    
+  }
+}
+vector<string>q(vector<string>&k,string digits){
+  string s="";
+  int idx=0;
+  vector<string>m;
+   if (digits.empty()){
+        return m;
+    }
+  
+      recur(k,s,m,digits,idx);
+      return m;
+
+}
+    vector<string> letterCombinations(string digits) {
+         vector<string>k={" ","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    
+   
+    vector<string>p=q(k,digits);
+    return p;
+    
+        
+    }
+};
+
+palindrome  partitioning 
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+
+bool palindrome(int i, int idx,string str){
+  string a=str.substr(idx,i-idx+1);
+  string b=a;
+  reverse(b.begin(),b.end());
+  
+  if (a==b)return true;
+  else{
+    return false;
+  } 
+}
+
+void recur(int idx,string &str,vector<string> &s,vector<vector<string>>&result){
+  if (idx==str.size()){
+   
+    result.push_back(s);
+    return ;
+  }
+  for (int i=idx; i<str.size(); i++){
+    
+    if (palindrome(i,idx,str)){
+      s.push_back(str.substr(idx,i-idx+1));
+      recur(i+1,str,s,result);
+      
+      s.pop_back();
+      
+    }
+  }
+}
+vector<vector<string>>q(string str){
+  vector<string>s;
+  vector<vector<string>>result;
+  int idx=0;
+  
+  recur(idx,str,s,result);
+  return result;
+  
+}
+    vector<vector<string>> partition(string s) {
+          vector<vector<string>>p=q(s);
+
+          return p;
+
+        
+    }
+};
+
+word search
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+
+bool func(vector<vector<char>> & arr,int idx,string& word,int m, int n, int i, int j,bool &check){
+  
+  if (idx==word.size()){
+    check=true;
+    return check;
+  }
+ 
+ if (i < 0 || i >= m || j < 0 || j >= n || arr[i][j] != word[idx]) {
+   check=false;
+        return check ;
+    }
+        char ch=arr[i][j];
+
+    arr[i][j]=' ';
+  
+  if(  (i-1)>=0 && j<n && check==false){
+    func(arr,idx+1,word,m,n,i-1,j,check);
+  }
+   if(  (i+1)>=0 && j<n&& check==false){
+    func(arr,idx+1,word,m,n,i+1,j,check);
+  }
+  if(  i<m && (j+1)<n&& check==false){
+    func(arr,idx+1,word,m,n,i,j+1,check);
+  }
+    if( i<m && (j-1)>=0&& check==false){
+    func(arr,idx+1,word,m,n,i,j-1,check);
+  }
+    arr[i][j]=ch;
+
+  
+  return check ;
+}
+
+
+    bool exist(vector<vector<char>>& board, string word) {
+          int m=board.size();
+    int n=board[0].size();
+    int i=0,j=0,idx=0;
+    bool check=false;
+    bool pali=false;
+for ( i=0; i<m; i++){
+  for ( j=0; j<n; j++){
+    if (board[i][j]==word[0]){
+       pali=func(board,idx,word,m,n,i,j,check);
+
+      
+    }
+  }
+}
+      return pali;
+        
+    }
+};
+n queens 
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+
+
+bool possible (int i, int j, vector<string>board,int row){
+  int i1=i;
+  int j1=j;
+  while ((i1-1)>=0 && (j1-1>=0)){
+    if (board[j1-1][i1-1]=='Q')return false;
+    i1--;
+    j1--;
+    
+  }
+  int i2=i;
+  int j2=j;
+   while ((i2-1)>=0 && (j2+1)<row ){
+    if (board[j2+1][i2-1]=='Q')return false;
+    j2++;
+    i2--;;
+    
+  }
+  int i3=i; 
+  int j3=j;
+  
+   while ((i3-1)>=0 ){
+    if (board[j3][i3-1]=='Q')return false;
+    i3--;;
+    
+  }
+  return true;
+  
+  
+}
+void func(vector<string>&board,vector<vector<string>>&result,int i,int row, int col){
+  
+  for (int j=0; j<row; j++){
+    if (i==col){
+            result.push_back(board);
+
+        cout<<endl;
+    
+      return;
+    }
+    if (possible(i,j,board,row)){
+      board[j][i]='Q';
+      func(board,result,i+1,row,col);
+      board[j][i]='.';
+      
+    }
+  }
+  return;
+}
+
+vector<vector<string>>p(vector<string>board,int n){
+    vector<vector<string>>result;
+int i=0;
+int row=n;
+  int col=n;
+        func(board,result,i,row,col);
+        return result;
+
+  
+}
+
+    vector<vector<string>> solveNQueens(int n) {
+        vector<string >board(n);
+  int i=0;
+  
+  string s(n,'.');
+    for (int k=0; k<n; k++){
+   board[k]=s;
+  }
+    vector<vector<string>>q=p(board,n);
+           return q;
+        
+    }
+};
+
+unique path 3
+class Solution {
+public:
+
+
+void recur(vector<vector<int>>& arr,int i,int j,int count, int &result,int walk,int m,int n){
+  if (arr[i][j]==0){
+    arr[i][j]=-2;
+  }
+  if (arr[i][j]==2){
+
+    if (count==walk){
+      result+=1;
+      cout<<result<<endl;;
+    }
+    return ;
+  }
+  
+  if (i-1>=0 && j<n){
+
+    if (arr[i-1][j]==0 || arr[i-1][j]==2){
+//top
+      recur(arr,i-1,j,count+1,result,walk,m,n);
+    }
+  }
+ 
+  if (j+1<n && i<m){
+
+    if (arr[i][j+1]==0 || arr[i][j+1]==2){
+//right
+
+      recur(arr,i,j+1,count+1,result,walk,m,n);
+    }
+  }
+   if (i+1<m && j<n){
+
+    if (arr[i+1][j]==0 || arr[i+1][j]==2){
+//downcout<<"1  "<<count<<endl;
+
+      recur(arr,i+1,j,count+1,result,walk,m,n);
+    }
+  }
+   if (j-1>=0 && i<m){
+
+    if (arr[i][j-1]==0 || arr[i][j-1]==2){
+//left
+
+      recur(arr,i,j-1,count+1,result,walk,m,n);
+    }
+  }
+  
+  
+  if (arr[i][j]==-2){
+
+    arr[i][j]=0;
+  }
+  return ;
+}
+
+int q(vector<vector<int>>& grid){
+   int cut=0;
+  int m=grid.size();
+  int n=grid[0].size();
+  for (int i=0; i<m; i++){
+    for (int j=0; j<n; j++){
+      if (grid[i][j]==1 || grid[i][j]==-1){
+        cut++;
+      }
+    }
+  }
+  
+int walk=(m*n)-cut;
+  int result=0;
+  for (int i=0; i<m; i++){
+    for (int j=0; j<n; j++){
+     if (grid[i][j]==1){
+         recur(grid,i,j,0,result,walk,m,n);
+
+       return result;
+     }
+    }
+  }
+return result;
+    
+}
+    int uniquePathsIII(vector<vector<int>>& grid) {
+     
+  int p=q(grid);
+  return p;
+  
+        
+    }
+};
+word break
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+
+bool possible(vector<string> & word,int idx,int j,string & s){
+  string b=s.substr(idx,j-idx+1);
+  
+  if (find(word.begin(),word.end(),b)!=word.end()){
+    return true;
+  }
+  return false;
+}
+
+bool recur (vector<string>& word, string & s, string &a,int idx){
+  if (idx==s.size()){
+    return true;
+  }
+  
+  for (int j=idx; j<s.size(); j++){
+    
+    if (possible(word,idx,j,s)){
+      a+=s.substr(idx,j-idx+1);
+      
+
+
+      if (recur(word,s,a,j+1))return true;
+      a=s.substr(0,idx);
+    }
+  }
+  return false;
+}
+    bool wordBreak(string s, vector<string>& wordDict) {
+         string a="";
+  int idx=0;
+  
+  bool pali=recur(wordDict,s,a,idx);
+        return pali;
+    }
+};
+
+word break 2
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+
+bool possible(vector<string> & word,int idx,int j,string & s){
+  string b=s.substr(idx,j-idx+1);
+  
+  if (find(word.begin(),word.end(),b)!=word.end()){
+    return true;
+  }
+  return false;
+}
+
+void recur (vector<string>& word, string & s, string &a,int idx,vector<string>& ans){
+  if (idx==s.size()){
+    ans.push_back(a);
+
+
+    return;
+  }
+
+  for (int j=idx; j<s.size(); j++){
+    
+    if (possible(word,idx,j,s)){
+      
+      if (!a.empty()){
+        a+=' ';
+                      a+=s.substr(idx,j-idx+1);
+
+        
+      }
+      else {
+                              a+=s.substr(idx,j-idx+1);
+
+      }
+
+      
+      
+
+
+      recur(word,s,a,j+1,ans);
+      int j1=a.size()-1;
+      
+      while (a[j1]!=' '){
+        a.pop_back();
+        if (j1==0)break;
+        j1--;
+      }
+      if (!a.empty()){
+              a.pop_back();
+
+      }    }
+  }
+  return ;
+}
+
+vector<string > q(string & s, vector<string> & word){
+  string a;
+  int idx=0;
+  vector<string>ans;
+   recur(word,s,a,idx,ans);
+   
+  
+   return ans;
+}
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+         vector<string> pali=q(s,wordDict);
+return pali;
+    }
+};
+
+m colouring problem 
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+
+bool possible(vector<string> & word,int idx,int j,string & s){
+  string b=s.substr(idx,j-idx+1);
+  
+  if (find(word.begin(),word.end(),b)!=word.end()){
+    return true;
+  }
+  return false;
+}
+
+void recur (vector<string>& word, string & s, string &a,int idx,vector<string>& ans){
+  if (idx==s.size()){
+    ans.push_back(a);
+
+
+    return;
+  }
+
+  for (int j=idx; j<s.size(); j++){
+    
+    if (possible(word,idx,j,s)){
+      
+      if (!a.empty()){
+        a+=' ';
+                      a+=s.substr(idx,j-idx+1);
+
+        
+      }
+      else {
+                              a+=s.substr(idx,j-idx+1);
+
+      }
+
+      
+      
+
+
+      recur(word,s,a,j+1,ans);
+      int j1=a.size()-1;
+      
+      while (a[j1]!=' '){
+        a.pop_back();
+        if (j1==0)break;
+        j1--;
+      }
+      if (!a.empty()){
+              a.pop_back();
+
+      }    }
+  }
+  return ;
+}
+
+vector<string > q(string & s, vector<string> & word){
+  string a;
+  int idx=0;
+  vector<string>ans;
+   recur(word,s,a,idx,ans);
+   
+  
+   return ans;
+}
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+         vector<string> pali=q(s,wordDict);
+return pali;
+    }
+};
+
+suduko solver 
+
+class Solution {
+public:
+
+bool possi(vector<vector<char>>& board,int i1,int j1,char c){
+    for (int k=0; k<9; k++){
+        if (board[i1][k]==c)return false;
+
+        if (board[k][j1]==c)return false;
+    }
+    int start=(i1/3)*3;
+    int end=(j1/3)*3;
+     for (int i=start; i<(start+3); i++){
+    for (int j=end; j<(end+3); j++){
+        if (board[i][j]==c)return false;
+    }
+  }
+
+  return true;
+}
+bool recur (vector<vector<char>>& board){
+
+    for (int i=0; i<9; i++){
+        for (int j=0; j<9; j++){
+            if (board[i][j]=='.'){
+                for (int k=1; k<=9; k++){
+                    char ch='0'+k;
+                    if (possi(board,i,j,ch)){
+                        board[i][j]=ch;
+                        if (recur(board))return true;
+                        board[i][j]='.';
+
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    return true;
+}
+    void solveSudoku(vector<vector<char>>& board) {
+
+        recur(board);
+        
+    }
+};
+
+add expression operator 
+
+class Solution {
+public:
+
+void recur(vector<string>&ans,long sum,int idx,long prev,const string &curr,string & num,int target){
+  if (idx==num.size()){
+    if (sum==target){
+
+      ans.push_back(curr);
+    }
+    return;
+  }
+  
+  long n=0;
+  string a="";
+  for (int j=idx; j<num.size(); j++){
+    a=num.substr(idx,j-idx+1);
+    n=n*10+(num[j]-'0');
+    
+
+    if (j>idx && a[0]=='0'){
+
+      return;
+    }
+    if (idx==0){
+      recur(ans,n,j+1,n,curr+a,num,target);
+    }
+    else {
+            recur(ans,sum+n,j+1,n,curr+"+"+a,num,target);
+            recur(ans,sum-n,j+1,-n,curr+"-"+a,num,target);
+            recur(ans,sum-prev+prev*n,j+1,prev*n,curr+"*"+a,num,target);
+    }
+  }
+  
+  return ;
+  
+  
+}
+vector<string>q(string & num,int target){
+  
+  vector<string>ans;
+  long sum=0,prev=0;
+  int idx=0;
+  string curr="";
+  
+  recur(ans,sum,idx,prev,curr,num,target);
+  
+  return ans;
+}
+
+    vector<string> addOperators(string num, int target) {
+
+          vector<string>p=q(num,target);
+return p;
+        
+    }
+};
