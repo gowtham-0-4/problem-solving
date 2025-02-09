@@ -1,0 +1,61 @@
+count substrings divisible by last digit 
+#include <bits/stdc++.h>
+using namespace std;
+
+bool possible(int idx1,int j1,string &s){
+  long long num=0;
+  int n1=0;
+  n1=(s[j1]-'0');
+  if (n1==0)return false;
+  for (int i=idx1; i<=j1; i++){
+    num=num*10 +(s[i]-'0');
+  }
+ 
+
+  if ((num%n1)==0)return true;
+  
+  return false;
+}
+
+void recur(string &s,int idx,set<string>&st ){
+  if (idx==s.size()){
+    return ;
+  }
+  
+  for (int j=idx; j<s.size(); j++){
+    
+    if (possible(idx,j,s)){
+      st.insert(s.substr(idx,j-idx+1));
+
+    
+
+      recur(s,j+1,st);
+
+    }
+  }
+  return ;
+}
+
+long long  q(string &s ){
+  long long count=0;
+  int idx=0;
+  set<string>st;
+  
+  recur(s,idx,st);
+  
+  for (auto val :st){
+    count+=1;
+  }
+  return count;
+  
+}
+
+int main(){
+  string s="5701283";
+  
+long long w=q(s);
+cout<<w<<endl;
+
+}
+
+assign elements to group with constraints
